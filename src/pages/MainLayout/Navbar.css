@@ -1,0 +1,97 @@
+.navbar-container {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 0.8rem 2rem;
+  background-color: #ffffff;
+  box-shadow: "0 10px 30px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)";
+  border-radius: 15px;
+  z-index: 1000;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.title {
+  color: #ff6347;
+  font-family: "Lucida Handwriting", cursive;
+  font-size: 2.8vw;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+}
+
+@media (max-width: 800px) {
+  .title {
+    font-size: 6vw;
+  }
+}
+
+.menu-item {
+  color: #856c6c;
+  font-weight: 700;
+  font-size: 30px;
+  position: relative;
+  transition: color 0.3s ease, padding-bottom 0.3s ease;
+}
+
+.menu-item:hover {
+  border-radius: 8px;
+  color: #ff6347;
+  cursor: pointer;
+}
+
+.menu-item::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px; /* Thickness of the underline */
+  background-color: #ff6347; /* Color of the underline */
+  transform: scaleX(0); /* Initially scale the underline to 0 (hidden) */
+  transform-origin: bottom right; /* Scale from the right side */
+  transition: transform 0.3s ease;
+}
+
+.menu-item:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.menu-content {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.custom-dropdown {
+  max-width: 100vw !important;
+  top: 1rem;
+  border: 1px solid rgb(116, 116, 121);
+  max-height: 80vh !important;
+  overflow-y: scroll;
+  font-size: 2vw;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-self: start;
+  align-items: flex-start;
+}
+
+.custom-dropdown .ant-dropdown-menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-dropdown .ant-dropdown-menu-item {
+  display: flex !important;
+  flex-direction: column !important;
+  flex-wrap: wrap !important;
+  align-items: flex-start !important;
+  font-size: 20px !important;
+}

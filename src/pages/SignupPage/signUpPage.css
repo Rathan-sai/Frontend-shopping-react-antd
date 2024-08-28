@@ -1,0 +1,46 @@
+.container {
+  font-family: "Roboto", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url("../../assets/Images/store.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 4rem 2rem 4rem;
+  border-radius: 15px;
+  background-color: rgba(205, 181, 181, 0.4);
+  box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.greeting {
+  display: flex;
+  justify-content: center;
+  font-size: 40px;
+  font-weight: 900;
+  font-family: "Times New Roman", Times, serif;
+  color: rgb(0 72 255 / 91%);
+}
+
+.animated-help {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
