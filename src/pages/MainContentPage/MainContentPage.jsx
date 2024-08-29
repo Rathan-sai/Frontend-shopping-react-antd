@@ -1,19 +1,14 @@
-import { Layout } from "antd";
+import { Carousel, Col, Row } from "antd";
+import { Content } from "antd/es/layout/layout";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import image1 from "../../assets/Images/burgess-milner-OYYE4g-I5ZQ-unsplash.jpg";
 import image4 from "../../assets/images/clark-street-mercantile-qnKhZJPKFD8-unsplash.jpg";
 import image3 from "../../assets/images/hannah-morgan-ycVFts5Ma4s-unsplash.jpg";
 import image2 from "../../assets/images/hugo-clement-JGtPrdnMgQc-unsplash.jpg";
 import image5 from "../../assets/images/pexels-olly-3769747.jpg";
-import AppRoutes from "../../Routes/AppRoutes";
-import "./MainLayout.css";
-import Navbar from "./Navbar";
-
-const { Header, Footer, Sider, Content } = Layout;
-
-const MainLayout = () => {
-  const images = [image1, image2, image3, image4, image5];
-
+const MainPageContent = () => {
+  const navigate = useNavigate();
   const imageSliderData = [
     {
       key: "1",
@@ -137,19 +132,76 @@ const MainLayout = () => {
     },
   ];
 
+  const images = [image1, image2, image3, image4, image5];
+
+  const handleClickOnCarousel = () => {
+    console.log("click on the carusel or the grid images");
+
+    navigate("/products-page");
+  };
+
   return (
-    <div className="mainlayout-container">
-      <Layout>
-        <Header style={{ display: "flex", position: "fixed", zIndex: "100" }}>
-          <Navbar />
-        </Header>
-        <Content>
-          <AppRoutes />
-        </Content>
-        <Footer>Footer</Footer>
-      </Layout>
-    </div>
+    <>
+      <Carousel
+        // style={{ cursor: "pointer" }}
+        arrows
+        autoplay={true}
+        effect="fade"
+        infinite={true}
+      >
+        {images.map((image, index) => (
+          <div key={index}>
+            <div
+              onClick={handleClickOnCarousel}
+              className="content-style"
+              style={{ backgroundImage: `url(${image})`, cursor: "pointer" }}
+            />
+            <div onClick={handleClickOnCarousel} className="overlay-content">
+              <h1>Where Style Meets Comfort</h1>
+            </div>
+          </div>
+        ))}
+      </Carousel>
+
+      <br />
+      <Content>
+        <div>
+          <Row gutter={[2, 2]}>
+            {imageSliderData.map((item) => (
+              <Col
+                key={item.key}
+                xs={{ flex: "100%" }}
+                sm={{ flex: "50%" }}
+                md={{ flex: "50%" }}
+                lg={{ flex: "25%" }}
+                xl={{ flex: "25%" }}
+              >
+                <div
+                  onClick={handleClickOnCarousel}
+                  style={{
+                    textAlign: "center",
+                    padding: "10px",
+                    cursor: "pointer",
+                  }}
+                >
+                  <img
+                    src={item.image}
+                    alt={item.label}
+                    style={{
+                      width: "100%",
+                      height: "200px",
+                      objectFit: "cover",
+                      borderRadius: "8px",
+                    }}
+                  />
+                  <h3 style={{ marginTop: "10px" }}>{item.label}</h3>
+                </div>
+              </Col>
+            ))}
+          </Row>
+        </div>
+      </Content>
+    </>
   );
 };
-
-export default MainLayout;
+export default MainPageContent;

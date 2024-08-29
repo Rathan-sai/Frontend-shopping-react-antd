@@ -667,14 +667,9 @@ const { useBreakpoint } = Grid;
 const Navbar = () => {
   const [shouldNavigate, setShouldNavigate] = useState(false);
   const [isCollapseVisible, setIsCollapseVisible] = useState(false);
-  //  const [current, setCurrent] = useState("mail");
-  // const onClick = (e) => {
-  //   console.log("click ", e);
-  //   setCurrent(e.key);
-  // };
   const navigate = useNavigate();
   const location = useLocation();
-  const targetPath = "/mainlayout";
+  const targetPath = "/";
   const screens = useBreakpoint();
 
   useEffect(() => {
@@ -696,6 +691,10 @@ const Navbar = () => {
     setShouldNavigate(true);
   };
 
+  const handleTopMenuClick = () => {
+    navigate("/products-page");
+  };
+
   return (
     <nav>
       <div className="navbar-container">
@@ -705,10 +704,30 @@ const Navbar = () => {
               smile & style
             </div>
             <Space size={30}>
-              <MenuItem menuItems={ChildrenDropdownItems}>Children</MenuItem>
-              <MenuItem menuItems={menDropdownItems}>Men</MenuItem>
-              <MenuItem menuItems={womenDropdownItems}>Women</MenuItem>
-              <MenuItem menuItems={unisexDropdownItems}>UniSex</MenuItem>
+              <MenuItem
+                onClick={handleTopMenuClick}
+                menuItems={ChildrenDropdownItems}
+              >
+                Children
+              </MenuItem>
+              <MenuItem
+                onClick={handleTopMenuClick}
+                menuItems={menDropdownItems}
+              >
+                Men
+              </MenuItem>
+              <MenuItem
+                onClick={handleTopMenuClick}
+                menuItems={womenDropdownItems}
+              >
+                Women
+              </MenuItem>
+              <MenuItem
+                onClick={handleTopMenuClick}
+                menuItems={unisexDropdownItems}
+              >
+                UniSex
+              </MenuItem>
             </Space>
             <Space size={20} className="menu-content">
               <Search

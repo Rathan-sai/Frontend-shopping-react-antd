@@ -1,11 +1,11 @@
 import React from "react";
 import "./App.css";
-import AppRoutes from "./Routes/AppRoutes";
+import MainLayout from "./pages/MainLayout/MainLayout";
 
 const App = () => {
   return (
     <div>
-      <AppRoutes />
+      <MainLayout />
     </div>
   );
 };
