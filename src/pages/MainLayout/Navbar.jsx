@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { AiOutlineShopping, AiOutlineUser } from "react-icons/ai";
 import { useLocation, useNavigate } from "react-router-dom";
+import DarkModeToggle from "../../Components/DarModeToggle";
 import "./Navbar.css";
 const { Search } = Input;
 
@@ -633,35 +634,6 @@ const combinedDropdownItems = [
   },
 ];
 
-const MenuItem = ({ children, menuItems }) => {
-  return (
-    <Dropdown
-      menu={{
-        items: menuItems,
-        className: "custom-dropdown",
-      }}
-      trigger={["hover"]}
-      placement="bottom"
-      overlayStyle={{}}
-    >
-      <motion.div
-        className="menu-item"
-        whileHover={{ color: "#000000" }}
-        whileTap={{ scale: 0.95 }}
-        initial={{ position: "relative" }}
-      >
-        {children}
-        <motion.div
-          className="underline"
-          initial={{ scaleX: 0 }}
-          whileHover={{ scaleX: 1 }}
-          transition={{ duration: 0.3 }}
-        />
-      </motion.div>
-    </Dropdown>
-  );
-};
-
 const { useBreakpoint } = Grid;
 
 const Navbar = () => {
@@ -671,6 +643,35 @@ const Navbar = () => {
   const location = useLocation();
   const targetPath = "/";
   const screens = useBreakpoint();
+
+  const MenuItem = ({ children, menuItems }) => {
+    return (
+      <Dropdown
+        menu={{
+          items: menuItems,
+          className: "custom-dropdown",
+        }}
+        trigger={["hover"]}
+        placement="bottom"
+        overlayStyle={{}}
+      >
+        <motion.div
+          className="menu-item dark:text-white dark:hover:text-red-500"
+          whileHover={{ color: "#000000" }}
+          whileTap={{ scale: 0.95 }}
+          initial={{ position: "relative" }}
+        >
+          {children}
+          <motion.div
+            className="underline"
+            initial={{ scaleX: 0 }}
+            whileHover={{ scaleX: 1 }}
+            transition={{ duration: 0.3 }}
+          />
+        </motion.div>
+      </Dropdown>
+    );
+  };
 
   useEffect(() => {
     if (shouldNavigate) {
@@ -697,7 +698,7 @@ const Navbar = () => {
 
   return (
     <nav>
-      <div className="navbar-container">
+      <div className="w-full fixed top-0 left-0 py-3 px-8 shadow-lg rounded-xl z-[1000] bg-white dark:bg-black">
         {screens.xl ? (
           <Space className="header-content" size={30}>
             <div onClick={handleTitleClick} className="title">
@@ -738,12 +739,13 @@ const Navbar = () => {
                   width: 300,
                 }}
               />
+              <DarkModeToggle />
               <AiOutlineShopping
-                className="menu-content"
+                className="menu-content dark:text-white"
                 style={{ fontSize: "30px" }}
               />
               <AiOutlineUser
-                className="menu-content"
+                className="menu-content dark:text-white"
                 style={{ fontSize: "30px" }}
               />
             </Space>
