@@ -138,7 +138,7 @@ const MainLayout = () => {
   ];
 
   return (
-    <div className="mainlayout-container">
+    <div className="dark:bg-black">
       <Layout>
         <Header style={{ display: "flex", position: "fixed", zIndex: "100" }}>
           <Navbar />
