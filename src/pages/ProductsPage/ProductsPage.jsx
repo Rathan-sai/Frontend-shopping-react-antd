@@ -1,12 +1,14 @@
 import {
   AppstoreOutlined,
+  BgColorsOutlined,
   CalendarOutlined,
   DollarOutlined,
+  LineHeightOutlined,
+  MinusCircleOutlined,
   PercentageOutlined,
   ShoppingCartOutlined,
   TagOutlined,
 } from "@ant-design/icons";
-import { faker } from "@faker-js/faker";
 import {
   Card,
   Checkbox,
@@ -19,270 +21,347 @@ import {
   Skeleton,
 } from "antd";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useProducts } from "../../Components/GenerateProducts";
 import "./ProductsPage.css";
 
 const { Header, Footer, Sider, Content } = Layout;
 const { Meta } = Card;
-const { Panel } = Collapse;
 const { useBreakpoint } = Grid;
-const filterItems = [
-  {
-    key: "brand",
-    label: "BRAND",
-    icon: <TagOutlined />,
-    children: [
-      {
-        key: "brand1",
-        label: "Brand A",
-      },
-      {
-        key: "brand2",
-        label: "Brand B",
-      },
-      {
-        key: "brand3",
-        label: "Brand C",
-      },
-    ],
-  },
-  {
-    key: "category",
-    label: "CATEGORY",
-    icon: <AppstoreOutlined />,
-    children: [
-      {
-        key: "category1",
-        label: "Category 1",
-      },
-      {
-        key: "category2",
-        label: "Category 2",
-      },
-      {
-        key: "category3",
-        label: "Category 3",
-      },
-    ],
-  },
-  {
-    key: "price",
-    label: "PRICE",
-    icon: <DollarOutlined />,
-    children: [
-      {
-        key: "price1",
-        label: "$0 - $50",
-      },
-      {
-        key: "price2",
-        label: "$50 - $100",
-      },
-      {
-        key: "price3",
-        label: "$100 - $200",
-      },
-    ],
-  },
-  {
-    key: "gender",
-    label: "GENDER",
-    // icon: <GenderOutlined />,
-    children: [
-      {
-        key: "gender1",
-        label: "Men",
-      },
-      {
-        key: "gender2",
-        label: "Women",
-      },
-      {
-        key: "gender3",
-        label: "Unisex",
-      },
-    ],
-  },
-  {
-    key: "sizes",
-    label: "SIZES",
-    // icon: <SizeOutlined />,
-    children: [
-      {
-        key: "size1",
-        label: "S",
-      },
-      {
-        key: "size2",
-        label: "M",
-      },
-      {
-        key: "size3",
-        label: "L",
-      },
-      {
-        key: "size4",
-        label: "XL",
-      },
-      {
-        key: "size5",
-        label: "XXL",
-      },
-    ],
-  },
-  {
-    key: "discount",
-    label: "DISCOUNT",
-    icon: <PercentageOutlined />,
-    children: [
-      {
-        key: "discount1",
-        label: "10% Off",
-      },
-      {
-        key: "discount2",
-        label: "20% Off",
-      },
-      {
-        key: "discount3",
-        label: "30% Off",
-      },
-    ],
-  },
-  {
-    key: "occasion",
-    label: "OCCASION",
-    icon: <CalendarOutlined />,
-    children: [
-      {
-        key: "occasion1",
-        label: "Casual",
-      },
-      {
-        key: "occasion2",
-        label: "Formal",
-      },
-      {
-        key: "occasion3",
-        label: "Sports",
-      },
-    ],
-  },
-  {
-    key: "color",
-    label: "COLOR",
-    // icon: <PaletteOutlined />,
-    children: [
-      {
-        key: "color1",
-        label: "Red",
-      },
-      {
-        key: "color2",
-        label: "Blue",
-      },
-      {
-        key: "color3",
-        label: "Green",
-      },
-      {
-        key: "color4",
-        label: "Black",
-      },
-      {
-        key: "color5",
-        label: "White",
-      },
-    ],
-  },
-  {
-    key: "deliveryTime",
-    label: "DELIVERY TIME",
-    icon: <ShoppingCartOutlined />,
-    children: [
-      {
-        key: "delivery1",
-        label: "1-3 Days",
-      },
-      {
-        key: "delivery2",
-        label: "4-7 Days",
-      },
-      {
-        key: "delivery3",
-        label: "1-2 Weeks",
-      },
-    ],
-  },
-  {
-    key: "deals",
-    label: "DEALS",
-    icon: <TagOutlined />,
-    children: [
-      {
-        key: "deal1",
-        label: "Deal 1",
-      },
-      {
-        key: "deal2",
-        label: "Deal 2",
-      },
-      {
-        key: "deal3",
-        label: "Deal 3",
-      },
-    ],
-  },
+
+const brands = [
+  "Nike",
+  "Adidas",
+  "Puma",
+  "Reebok",
+  "Under Armour",
+  "Levi's",
+  "H&M",
+  "Zara",
+  "Uniqlo",
+  "Gucci",
 ];
-
-// Generate a large number of products
-const generateProducts = (num) => {
-  return Array.from({ length: num }, () => ({
-    id: faker.number.int({ min: 1, max: 10000 }),
-    title: faker.commerce.productName(),
-    description: faker.commerce.productDescription(),
-    price: parseFloat(faker.commerce.price()),
-    imageUrl: `https://picsum.photos/200?random=${faker.number.int({
-      min: 1,
-      max: 1000,
-    })}`,
-  }));
-};
-
-const collapseItems = filterItems.map((filter) => ({
-  key: filter.key,
-  label: (
-    <span>
-      {filter.icon} {filter.label}
-    </span>
-  ),
-  children: (
-    <Checkbox.Group>
-      {filter.children.map((item) => (
-        <Checkbox key={item.key} value={item.key}>
-          {item.label}
-        </Checkbox>
-      ))}
-    </Checkbox.Group>
-  ),
-}));
+const genders = ["Men", "Women", "Unisex"];
+const categories = ["Children", "Adult", "Old"];
+const sizes = ["S", "M", "L", "XL", "XXL"];
+const colors = ["Red", "Blue", "Green", "Black", "White", "Yellow", "Pink"];
 
 const ProductsPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize] = useState(20);
+  const [selectedFilters, setSelectedFilters] = useState({
+    brand: [],
+    category: [],
+    price: [],
+    gender: [],
+    sizes: [],
+    color: [],
+    discount: [],
+    occasion: [],
+    deliveryTime: [],
+    deals: [],
+  });
   const screens = useBreakpoint();
+  const navigate = useNavigate();
 
-  const products = generateProducts(3000);
+  const handleFilterChange = (filterType, checkedValues) => {
+    setSelectedFilters((prev) => ({
+      ...prev,
+      [filterType]: checkedValues,
+    }));
+  };
+
+  const filterItems = [
+    {
+      key: "brand",
+      label: "BRAND",
+      icon: <TagOutlined />,
+      children: brands.map((brand) => ({
+        key: brand,
+        label: brand,
+      })),
+    },
+    {
+      key: "category",
+      label: "CATEGORY",
+      icon: <AppstoreOutlined />,
+      children: categories.map((category, index) => ({
+        key: category,
+        label: category,
+      })),
+    },
+    {
+      key: "price",
+      label: "PRICE",
+      icon: <DollarOutlined />,
+      children: [
+        {
+          key: "price1",
+          label: "$0 - $50",
+        },
+        {
+          key: "price2",
+          label: "$50 - $200",
+        },
+        {
+          key: "price3",
+          label: "$200 - $500",
+        },
+        {
+          key: "price4",
+          label: "$500 - $1000",
+        },
+      ],
+    },
+    {
+      key: "gender",
+      label: "GENDER",
+      icon: <MinusCircleOutlined />,
+      children: genders.map((gender, index) => ({
+        key: gender,
+        label: gender,
+      })),
+    },
+    {
+      key: "sizes",
+      label: "SIZES",
+      icon: <LineHeightOutlined />,
+      children: sizes.map((size, index) => ({
+        key: size,
+        label: size,
+      })),
+    },
+    {
+      key: "discount",
+      label: "DISCOUNT",
+      icon: <PercentageOutlined />,
+      children: [
+        {
+          key: "discount1",
+          label: "10% Off",
+        },
+        {
+          key: "discount2",
+          label: "20% Off",
+        },
+        {
+          key: "discount3",
+          label: "30% Off",
+        },
+        {
+          key: "discount4",
+          label: "40% Off",
+        },
+        {
+          key: "discount5",
+          label: "50% Off",
+        },
+      ],
+    },
+    {
+      key: "occasion",
+      label: "OCCASION",
+      icon: <CalendarOutlined />,
+      children: [
+        {
+          key: "occasion1",
+          label: "Casual",
+        },
+        {
+          key: "occasion2",
+          label: "Formal",
+        },
+        {
+          key: "occasion3",
+          label: "Sports",
+        },
+      ],
+    },
+    {
+      key: "color",
+      label: "COLOR",
+      icon: <BgColorsOutlined />,
+      children: colors.map((color, index) => ({
+        key: color,
+        label: color,
+      })),
+    },
+    {
+      key: "deliveryTime",
+      label: "DELIVERY TIME",
+      icon: <ShoppingCartOutlined />,
+      children: [
+        {
+          key: "delivery1",
+          label: "1-3 Days",
+        },
+        {
+          key: "delivery2",
+          label: "4-7 Days",
+        },
+        {
+          key: "delivery3",
+          label: "1-2 Weeks",
+        },
+      ],
+    },
+    {
+      key: "deals",
+      label: "DEALS",
+      icon: <TagOutlined />,
+      children: [
+        {
+          key: "deal1",
+          label: "Deal 1",
+        },
+        {
+          key: "deal2",
+          label: "Deal 2",
+        },
+        {
+          key: "deal3",
+          label: "Deal 3",
+        },
+      ],
+    },
+  ];
+
+  const collapseItems = filterItems.map((filter) => ({
+    key: filter.key,
+    label: (
+      <span>
+        {filter.icon} {filter.label}
+      </span>
+    ),
+    children: (
+      <Checkbox.Group
+        onChange={(checkedValues) =>
+          handleFilterChange(filter.key, checkedValues)
+        }
+      >
+        {filter.children.map((item, index) => (
+          <div
+            key={`${filter.key}${index}`}
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "space-around",
+              gap: "10px",
+            }}
+          >
+            <Checkbox value={item.key}>{item.label}</Checkbox>
+          </div>
+        ))}
+      </Checkbox.Group>
+    ),
+  }));
+
+  const filterProducts = (products) => {
+    return products.filter((product) => {
+      // Check brand filter
+      if (
+        selectedFilters.brand.length > 0 &&
+        !selectedFilters.brand.includes(product.brand)
+      ) {
+        return false;
+      }
+
+      // Check category filter
+      if (
+        selectedFilters.category.length > 0 &&
+        !selectedFilters.category.includes(product.category)
+      ) {
+        return false;
+      }
+
+      // Check price filter (adjust conditions based on your product price properties)
+      if (selectedFilters.price.length > 0) {
+        const productPrice = product.price;
+        console.log(product.price);
+        const isPriceInRange = selectedFilters.price.some((priceRange) => {
+          switch (priceRange) {
+            case "price1":
+              return productPrice >= 0 && productPrice <= 50;
+            case "price2":
+              return productPrice > 50 && productPrice <= 200;
+            case "price3":
+              return productPrice > 200 && productPrice <= 500;
+            case "price4":
+              return productPrice > 500 && productPrice <= 1000;
+            default:
+              return false;
+          }
+        });
+        if (!isPriceInRange) {
+          return false;
+        }
+      }
+
+      // Check gender filter
+      if (
+        selectedFilters.gender.length > 0 &&
+        !selectedFilters.gender.includes(product.gender)
+      ) {
+        return false;
+      }
+
+      // Check sizes filter
+      if (
+        selectedFilters.sizes.length > 0 &&
+        !selectedFilters.sizes.includes(product.size)
+      ) {
+        return false;
+      }
+
+      // Check color filter
+      if (
+        selectedFilters.color.length > 0 &&
+        !selectedFilters.color.includes(product.color)
+      ) {
+        return false;
+      }
+
+      // Check discount filter
+      if (selectedFilters.discount.length > 0) {
+        const isDiscountMatch = selectedFilters.discount.some((discount) => {
+          switch (discount) {
+            case "discount1":
+              return product.discount >= 10;
+            case "discount2":
+              return product.discount >= 20;
+            case "discount3":
+              return product.discount >= 30;
+            default:
+              return false;
+          }
+        });
+        if (!isDiscountMatch) {
+          return false;
+        }
+      }
+
+      return true;
+    });
+  };
+
+  const productsList = useProducts();
+  let products = filterProducts(
+    [...productsList].sort((a, b) => a.title.localeCompare(b.title))
+  );
   const totalProducts = products.length;
 
-  // Paginate products
   const paginatedProducts = products.slice(
     (currentPage - 1) * pageSize,
     currentPage * pageSize
   );
 
-  // Handle page change
   const onPageChange = (page) => {
     setCurrentPage(page);
+  };
+
+  const handleCardClick = (productId) => {
+    console.log(products.find((p) => (p.id = productId)));
+    navigate(`/product-details/${productId}`);
   };
 
   return (
@@ -307,18 +386,15 @@ const ProductsPage = () => {
           <div style={{ padding: "24px" }}>
             <Row
               gutter={[16, 39]}
-              style={{
-                marginRight: "8px",
-                paddingBottom: "30px",
-              }}
+              style={{ marginRight: "8px", paddingBottom: "30px" }}
             >
               {paginatedProducts.length === 0
                 ? Array.from({ length: pageSize }).map((_, index) => (
                     <Col
                       key={index}
-                      xs={24} // Full width on extra small screens
-                      sm={18} // Half width on small screens
-                      md={12} // One-third width on medium screens
+                      xs={24}
+                      sm={18}
+                      md={12}
                       lg={6}
                       style={{
                         display: "flex",
@@ -342,19 +418,14 @@ const ProductsPage = () => {
                     </Col>
                   ))
                 : paginatedProducts.map((product) => (
-                    <Col
-                      key={product.id}
-                      xs={24} // Full width on extra small screens
-                      sm={18} // Half width on small screens
-                      md={12} // One-third width on medium screens
-                      lg={6}
-                    >
+                    <Col key={product.id} xs={24} sm={18} md={12} lg={6}>
                       <Card
                         hoverable
                         style={{ width: "100%", height: "100%" }}
                         cover={
                           <img alt={product.title} src={product.imageUrl} />
                         }
+                        onClick={() => handleCardClick(product.id)}
                       >
                         <Meta
                           title={product.title}
