@@ -1,0 +1,106 @@
+.card-style {
+  width: 1000px;
+  border: 1px solid #f0f0f0;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-style:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.card-style img {
+  object-fit: cover;
+}
+
+.card-style .ant-card-body {
+  padding: 16px;
+}
+
+.card-style .ant-card-head-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.product-info {
+  padding: 18px 16px 16px 16px;
+}
+
+.price-details {
+  font-size: 28px;
+  margin-bottom: 16px;
+}
+
+.monthly-emi {
+  font-weight: bold;
+}
+
+.emi-details {
+  margin-top: 8px;
+  font-size: 20px;
+}
+
+.final-price {
+  font-size: 24px;
+  font-weight: bold;
+  color: #ff5722;
+}
+
+.original-price {
+  text-decoration: line-through;
+  color: #9e9e9e;
+}
+
+.discount {
+  color: green;
+  font-weight: bold;
+}
+
+.offers {
+  margin-top: 20px;
+}
+
+.offers strong {
+  font-size: xx-large;
+}
+
+.offers ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.offers ul li {
+  font-size: large;
+  margin-bottom: 8px;
+}
+
+.offers a {
+  color: #1890ff;
+  text-decoration: underline;
+}
+
+.button-style {
+  width: 300px;
+  height: 80px;
+  border-radius: 10px;
+  font-size: xx-large;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+  font-weight: bolder;
+}
+
+.new-products-style {
+  display: flex;
+  width: 100vw;
+  overflow-x: auto;
+  gap: 20px;
+  scrollbar-width: 0;
+}
+
+.new-products-style ::-webkit-scrollbar {
+  width: 0;
+}

@@ -146,7 +146,27 @@ const MainLayout = () => {
         <Content>
           <AppRoutes />
         </Content>
-        <Footer>Footer</Footer>
+        <Footer>
+          <div>Thank you for the shopping here</div>
+          <div>Thank you for the shopping here</div>
+          <div>Thank you for the shopping here</div>
+          <div>Thank you for the shopping here</div>
+          <div>Thank you for the shopping here</div>
+          <div>Thank you for the shopping here</div>
+          <div>Thank you for the shopping here</div>
+          <div>Thank you for the shopping here</div>
+          <div>Thank you for the shopping here</div>
+          <div>Thank you for the shopping here</div>
+          <div>Thank you for the shopping here</div>
+          <div>Thank you for the shopping here</div>
+          <div>Thank you for the shopping here</div>
+          <div>Thank you for the shopping here</div>
+          <div>Thank you for the shopping here</div>
+          <div>Thank you for the shopping here</div>
+          <div>Thank you for the shopping here</div>
+          <div>Thank you for the shopping here</div>
+          <div>Thank you for the shopping here</div>
+        </Footer>
       </Layout>
     </div>
   );
