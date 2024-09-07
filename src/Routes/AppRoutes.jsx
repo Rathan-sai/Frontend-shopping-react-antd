@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Routes as RouterRoutes } from "react-router-dom";
 import { ProductProvider } from "../Components/GenerateProducts";
+import CartDetails from "../pages/CartDetails/CartDetails";
 import MainContentPage from "../pages/MainContentPage/MainContentPage";
 import ProductDetails from "../pages/ProductDetails/ProductDetails";
 import ProductsPage from "../pages/ProductsPage/ProductsPage";
@@ -19,6 +20,7 @@ const AppRoutes = () => {
           path="/product-details/:productId"
           element={<ProductDetails />}
         />
+        <Route path="/cart-details" element={<CartDetails />} />
       </RouterRoutes>
     </ProductProvider>
   );

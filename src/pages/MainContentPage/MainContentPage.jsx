@@ -7,6 +7,8 @@ import image4 from "../../assets/images/clark-street-mercantile-qnKhZJPKFD8-unsp
 import image3 from "../../assets/images/hannah-morgan-ycVFts5Ma4s-unsplash.jpg";
 import image2 from "../../assets/images/hugo-clement-JGtPrdnMgQc-unsplash.jpg";
 import image5 from "../../assets/images/pexels-olly-3769747.jpg";
+import "../MainLayout/MainLayout.css";
+
 const MainPageContent = () => {
   const navigate = useNavigate();
   const imageSliderData = [

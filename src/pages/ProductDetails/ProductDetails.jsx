@@ -13,6 +13,7 @@ const ProductDetail = () => {
   const { productId } = useParams();
   const containerRef = useRef(null);
   const navigate = useNavigate();
+  // const { addToCart } = useContext(CartContext);
 
   const numericProductId = parseInt(productId, 10);
 
@@ -103,7 +104,7 @@ const ProductDetail = () => {
               <p>400 Rating & 200 Reviews</p>
             </div>
             <p style={{ fontSize: "60px", fontFamily: "cursive" }}>
-              Price: ₹{product.price.toFixed(2) * 10}
+              Price: ₹{product.price.toFixed(2) * 50}
             </p>
             <p style={{ fontSize: "20px" }}>{product.description}</p>
             <div className="product-info">
@@ -152,6 +153,7 @@ const ProductDetail = () => {
               <Button
                 className="button-style"
                 style={{ backgroundColor: "orange" }}
+                // onClick={() => addToCart(product)}
               >
                 <InboxOutlined />
                 Order Now
@@ -267,6 +269,8 @@ const ProductDetail = () => {
                   hoverable
                   style={{
                     width: 340,
+                    transition: "transform 0.3s, box-shadow 0.3s",
+                    margin: "20px 0px",
                   }}
                   cover={
                     loading ? (
@@ -277,7 +281,7 @@ const ProductDetail = () => {
                         style={{
                           position: "relative",
                           width: "100%",
-                          height: "350px",
+                          height: "300px",
                           objectFit: "fill",
                         }}
                         src={newProduct.images[0]}
@@ -285,16 +289,17 @@ const ProductDetail = () => {
                     )
                   }
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.transform =
-                      "scale(1.1) translateZ(50px)";
+                    e.currentTarget.style.transform = "scale(1.1)";
                     e.currentTarget.style.boxShadow =
                       "0 8px 30px rgba(0, 0, 0, 0.3)";
-                    e.currentTarget.style.overflow = "visible";
+                    e.currentTarget.style.zIndex = 1;
+                    e.currentTarget.style.backgroundColor = "#d4e6dc";
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = "scale(1) translateZ(0)";
+                    e.currentTarget.style.transform = "scale(1)";
                     e.currentTarget.style.boxShadow = "none";
-                    e.currentTarget.style.overflow = "hidden";
+                    e.currentTarget.style.zIndex = 0;
+                    e.currentTarget.style.backgroundColor = "white";
                   }}
                 >
                   <Meta

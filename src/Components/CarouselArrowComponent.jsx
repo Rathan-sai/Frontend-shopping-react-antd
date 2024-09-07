@@ -17,15 +17,16 @@ const CarouselArrowComponent = ({ direction, onClick }) => {
       style={{
         backgroundColor: hovered
           ? "rgba(245, 247, 248, 0.8)"
-          : "rgb(207 207 207)",
+          : "rgb(141 71 71)",
         position: "absolute",
         top: "50%",
         transform: "translate(0, -50%)",
-        height: "30%",
-        width: "60px",
+        height: "80px",
+        width: "80px",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        borderRadius: "50px",
         zIndex: 1,
         ...(direction === "left"
           ? {

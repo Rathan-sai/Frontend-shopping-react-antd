@@ -11,18 +11,6 @@
   background-size: cover;
 }
 
-.overlay-content {
-  position: absolute;
-  bottom: 30%;
-  left: 25vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: rgb(255, 255, 255);
-  font-size: 2vw;
-  text-align: center;
-}
-
 @media (max-width: 1200px) {
   .content-style {
     height: 400px;
@@ -49,7 +37,7 @@
   justify-content: center;
   align-items: center;
   color: rgb(255, 255, 255);
-  font-size: 2vw;
+  font-size: 4vw;
   text-align: center;
 }
 
