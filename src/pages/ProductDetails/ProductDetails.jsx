@@ -1,9 +1,10 @@
 import { InboxOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import { Button, Card, Flex, Image, Rate, Skeleton, Space } from "antd";
 import Meta from "antd/es/card/Meta";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import CarouselArrowComponent from "../../Components/CarouselArrowComponent";
+import { CartContext } from "../../Components/CartContext";
 import "./ProductDetails.css";
 
 const ProductDetail = () => {
@@ -13,7 +14,7 @@ const ProductDetail = () => {
   const { productId } = useParams();
   const containerRef = useRef(null);
   const navigate = useNavigate();
-  // const { addToCart } = useContext(CartContext);
+  const { addToCart } = useContext(CartContext);
 
   const numericProductId = parseInt(productId, 10);
 
@@ -62,6 +63,11 @@ const ProductDetail = () => {
     if (containerRef.current) {
       containerRef.current.scrollLeft += 340;
     }
+  };
+
+  const handleAddCart = () => {
+    console.log("adding the product to the cart products.........");
+    addToCart(product);
   };
 
   if (!product) {
@@ -146,6 +152,7 @@ const ProductDetail = () => {
               <Button
                 className="button-style"
                 style={{ backgroundColor: "#7c76ee" }}
+                onClick={handleAddCart}
               >
                 <ShoppingCartOutlined />
                 Add Card
@@ -153,7 +160,6 @@ const ProductDetail = () => {
               <Button
                 className="button-style"
                 style={{ backgroundColor: "orange" }}
-                // onClick={() => addToCart(product)}
               >
                 <InboxOutlined />
                 Order Now

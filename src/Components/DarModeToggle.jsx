@@ -23,7 +23,7 @@ const DarkModeToggle = () => {
   return (
     <button
       onClick={handleToggle}
-      className=" bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded"
+      className="overflow-hidden h-8 bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded"
     >
       {isDarkMode ? "Light Mode" : "Dark Mode"}
     </button>

@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@faker-js/faker": "^8.4.1",
-    "antd": "^5.20.2",
+    "antd": "^5.20.5",
     "formik": "^2.4.6",
     "framer-motion": "^11.3.30",
     "react": "^18.3.1",

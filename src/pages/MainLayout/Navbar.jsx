@@ -1,10 +1,19 @@
 import { MenuOutlined } from "@ant-design/icons";
-import { Button, Dropdown, Grid, Input, Menu, Space } from "antd";
+import {
+  Badge,
+  Button,
+  Dropdown,
+  Grid,
+  Input,
+  Menu,
+  Space,
+  Switch,
+} from "antd";
 import { motion } from "framer-motion";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AiOutlineShopping, AiOutlineUser } from "react-icons/ai";
 import { useLocation, useNavigate } from "react-router-dom";
-import DarkModeToggle from "../../Components/DarModeToggle";
+import { CartContext } from "../../Components/CartContext";
 import "./Navbar.css";
 const { Search } = Input;
 
@@ -643,6 +652,8 @@ const Navbar = () => {
   const location = useLocation();
   const targetPath = "/";
   const screens = useBreakpoint();
+  const cartProducts = useContext(CartContext);
+  const [show, setShow] = useState(true);
 
   const MenuItem = ({ children, menuItems }) => {
     return (
@@ -696,6 +707,10 @@ const Navbar = () => {
     navigate("/products-page");
   };
 
+  const handleCartClick = () => {
+    navigate("/cart-details");
+  };
+
   return (
     <nav>
       <div className="w-full fixed top-0 left-0 py-3 px-8 shadow-lg rounded-xl z-[1000] bg-white dark:bg-black">
@@ -730,25 +745,44 @@ const Navbar = () => {
                 UniSex
               </MenuItem>
             </Space>
-            <Space size={20} className="menu-content">
+            <div className="menu-content">
               <Search
                 placeholder="input search text"
                 allowClear
-                className="menu-content"
                 style={{
                   width: 300,
                 }}
               />
-              <DarkModeToggle />
-              <AiOutlineShopping
-                className="menu-content dark:text-white"
-                style={{ fontSize: "30px" }}
+              {/* <DarkModeToggle /> */}
+              <Switch checked={show} onChange={() => setShow(!show)} />
+              <Badge count={show ? 25 : 0} showZero color="#faad14" />
+              <Badge count={cartProducts !== null ? cartProducts.length : 0} />
+              <Badge
+                count={
+                  show ? (
+                    <AiOutlineShopping
+                      className="dark:text-white hover:cursor-pointer"
+                      style={{ fontSize: "30px" }}
+                      onClick={handleCartClick}
+                    />
+                  ) : (
+                    0
+                  )
+                }
               />
+
+              <Badge count={cartProducts.length}>
+                <AiOutlineShopping
+                  className="dark:text-white hover:cursor-pointer"
+                  style={{ fontSize: "30px" }}
+                  onClick={handleCartClick}
+                />
+              </Badge>
               <AiOutlineUser
-                className="menu-content dark:text-white"
+                className="dark:text-white hover:cursor-pointer"
                 style={{ fontSize: "30px" }}
               />
-            </Space>
+            </div>
           </Space>
         ) : (
           <div>
