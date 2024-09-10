@@ -1,7 +1,7 @@
 import React, { createContext, useState } from "react";
 
 // Create the context
-export const CartContext = createContext();
+export const CartContext = createContext([]);
 
 // Provider component to wrap the app
 export const CartProvider = ({ children }) => {

@@ -10,6 +10,7 @@ import {
   TagOutlined,
 } from "@ant-design/icons";
 import {
+  Badge,
   Card,
   Checkbox,
   Col,
@@ -419,43 +420,52 @@ const ProductsPage = () => {
                   ))
                 : paginatedProducts.map((product) => (
                     <Col key={product.id} xs={24} sm={18} md={12} lg={6}>
-                      <Card
-                        hoverable
-                        style={{ width: "100%", height: "100%" }}
-                        cover={
-                          <img alt={product.title} src={product.imageUrl} />
-                        }
-                        onClick={() => handleCardClick(product.id)}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.transform = "scale(1.1, 1.05)";
-                          e.currentTarget.style.boxShadow =
-                            "0 8px 30px rgba(0, 0, 0, 0.3)";
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.transform = "scale(1)";
-                          e.currentTarget.style.boxShadow = "none";
-                        }}
+                      <Badge.Ribbon
+                        text={product.brand}
+                        color="red"
+                        style={{ marginTop: "26px" }}
                       >
-                        <Meta
-                          title={product.title}
-                          description={
-                            <div>
-                              <div className="card-description">
-                                {product.description}
-                              </div>
-                              <div
-                                style={{
-                                  marginTop: "10px",
-                                  fontSize: "16px",
-                                  fontWeight: "bold",
-                                }}
-                              >
-                                ${product.price.toFixed(2)}
-                              </div>
-                            </div>
-                          }
-                        />
-                      </Card>
+                        <Badge.Ribbon text={product.size}>
+                          <Card
+                            hoverable
+                            style={{ width: "100%", height: "100%" }}
+                            cover={
+                              <img alt={product.title} src={product.imageUrl} />
+                            }
+                            onClick={() => handleCardClick(product.id)}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.transform =
+                                "scale(1.1, 1.05)";
+                              e.currentTarget.style.boxShadow =
+                                "0 8px 30px rgba(0, 0, 0, 0.3)";
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.transform = "scale(1)";
+                              e.currentTarget.style.boxShadow = "none";
+                            }}
+                          >
+                            <Meta
+                              title={product.title}
+                              description={
+                                <div>
+                                  <div className="card-description">
+                                    {product.description}
+                                  </div>
+                                  <div
+                                    style={{
+                                      marginTop: "10px",
+                                      fontSize: "16px",
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                    ${product.price.toFixed(2)}
+                                  </div>
+                                </div>
+                              }
+                            />
+                          </Card>
+                        </Badge.Ribbon>
+                      </Badge.Ribbon>
                     </Col>
                   ))}
             </Row>

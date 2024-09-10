@@ -1,14 +1,5 @@
-import { MenuOutlined } from "@ant-design/icons";
-import {
-  Badge,
-  Button,
-  Dropdown,
-  Grid,
-  Input,
-  Menu,
-  Space,
-  Switch,
-} from "antd";
+import { MenuOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+import { Badge, Button, Dropdown, Grid, Input, Menu, Space } from "antd";
 import { motion } from "framer-motion";
 import React, { useContext, useEffect, useState } from "react";
 import { AiOutlineShopping, AiOutlineUser } from "react-icons/ai";
@@ -652,8 +643,8 @@ const Navbar = () => {
   const location = useLocation();
   const targetPath = "/";
   const screens = useBreakpoint();
-  const cartProducts = useContext(CartContext);
-  const [show, setShow] = useState(true);
+  const cart = useContext(CartContext);
+  const cartItemsCount = cart.cart ? cart.cart.length : 0;
 
   const MenuItem = ({ children, menuItems }) => {
     return (
@@ -754,25 +745,8 @@ const Navbar = () => {
                 }}
               />
               {/* <DarkModeToggle /> */}
-              <Switch checked={show} onChange={() => setShow(!show)} />
-              <Badge count={show ? 25 : 0} showZero color="#faad14" />
-              <Badge count={cartProducts !== null ? cartProducts.length : 0} />
-              <Badge
-                count={
-                  show ? (
-                    <AiOutlineShopping
-                      className="dark:text-white hover:cursor-pointer"
-                      style={{ fontSize: "30px" }}
-                      onClick={handleCartClick}
-                    />
-                  ) : (
-                    0
-                  )
-                }
-              />
-
-              <Badge count={cartProducts.length}>
-                <AiOutlineShopping
+              <Badge count={cartItemsCount} showZero>
+                <ShoppingCartOutlined
                   className="dark:text-white hover:cursor-pointer"
                   style={{ fontSize: "30px" }}
                   onClick={handleCartClick}
